@@ -30,8 +30,14 @@
 	margin-top: 40px;
 }
 
+.filters li a {
+	display: inline-block;
+	margin: 2px;
+}
+
 .footer {
-	height: 60px;
+	height: initial;
+	min-height: 60px;
 }
 
 .todo-list li .destroy {
