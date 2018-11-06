@@ -7,6 +7,7 @@ import TodoItem from './todoItem';
 
 @observer
 export default class TodoOverview extends React.Component {
+
 	render() {
 		const {todoStore, viewStore} = this.props;
 		if (todoStore.todos.length === 0)
@@ -34,11 +35,26 @@ export default class TodoOverview extends React.Component {
 		return this.props.todoStore.todos.filter(todo => {
 			switch (this.props.viewStore.todoFilter) {
 				case ACTIVE_TODOS:
-					return !todo.completed;
+					if (this.props.todoStore.currentTag != "") {
+						return !todo.completed && todo.tags.includes(this.props.todoStore.currentTag);
+					}
+					else {
+						return !todo.completed;
+					}
 				case COMPLETED_TODOS:
-					return todo.completed;
+					if (this.props.todoStore.currentTag != "") {
+						return todo.completed && todo.tags.includes(this.props.todoStore.currentTag);
+					}
+					else {
+						return todo.completed;
+					}
 				default:
-					return true;
+					if (this.props.todoStore.currentTag != "") {
+						return todo.tags.includes(this.props.todoStore.currentTag);
+					}
+					else {
+						return true;
+					}
 			}
 		});
 	}

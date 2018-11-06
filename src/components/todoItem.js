@@ -9,6 +9,7 @@ const ENTER_KEY = 13;
 @observer
 export default class TodoItem extends React.Component {
 	@observable editText = "";
+	@observable tagsCode = "";
 
 	render() {
 		const {viewStore, todo} = this.props;
@@ -28,6 +29,18 @@ export default class TodoItem extends React.Component {
 						{todo.title}
 					</label>
 					<button className="destroy" onClick={this.handleDestroy} />
+					<input
+						ref="tagField"
+						className="tagField"
+						type="text"
+						value={this.tagText}
+						placeholder="Add a tag (ex. Urgent)"
+						onChange={this.handleTagging}
+						onKeyDown={this.checkKeyInput}
+					/>
+					<ul className="tagsList">
+						{this.getTagCode(this.props.todo.tags)}
+					</ul>
 				</div>
 				<input
 					ref="editField"
@@ -79,6 +92,34 @@ export default class TodoItem extends React.Component {
 	handleToggle = () => {
 		this.props.todo.toggle();
 	};
+
+	// My code
+	checkKeyInput = (event) => {
+		if (event.which === ENTER_KEY) {
+			var text = this.tagText;
+
+			if (text != "" && !this.props.todo.tags.includes(text)) {
+				this.props.todo.addTag(text);
+			}
+		}
+	};
+
+	handleTagging = (event) => {
+		this.tagText = event.target.value;
+		this.setState({
+     tagText: ''
+   });
+	};
+
+	getTagCode = (tags) => {
+		var tagCode;
+		tagCode = tags.map((text) =>
+		  <li className="tag" key={text}>{text}</li>
+		);
+		return tagCode;
+	}
+	//End of my code
+
 }
 
 TodoItem.propTypes = {

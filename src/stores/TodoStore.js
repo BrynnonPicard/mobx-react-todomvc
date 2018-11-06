@@ -5,6 +5,7 @@ import * as Utils from '../utils';
 
 export default class TodoStore {
 	@observable todos = [];
+	@observable currentTag = "";
 
 	@computed get activeTodoCount() {
 		return this.todos.reduce(
@@ -36,7 +37,7 @@ export default class TodoStore {
 	}
 
 	addTodo (title) {
-		this.todos.push(new TodoModel(this, Utils.uuid(), title, false));
+		this.todos.push(new TodoModel(this, Utils.uuid(), title, false, []));
 	}
 
 	toggleAll (checked) {
@@ -54,6 +55,24 @@ export default class TodoStore {
 	toJS() {
 		return this.todos.map(todo => todo.toJS());
 	}
+
+	//My code
+
+	//Function to extract a list of unique tags from the todos list
+	getTodoTags() {
+		var tags = [];
+
+		for (var i = 0; i < this.todos.length; i++) {
+			for (var j = 0; j < this.todos[i].tags.length; j++) {
+				if (!tags.includes(this.todos[i].tags[j])) {
+					tags.push(this.todos[i].tags[j]);
+				}
+			}
+		}
+		return tags;
+	}
+	//End of my code
+
 
 	static fromJS(array) {
 		const todoStore = new TodoStore();

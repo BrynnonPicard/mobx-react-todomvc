@@ -31,6 +31,10 @@ export default class TodoFooter extends React.Component {
 							Clear completed
 						</button>
 				}
+				<ul className="filters tagFilters">
+					<li key="all"><a href={"#/tags/" + ""} className={"" ===  this.props.todoStore.currentTag ? "selected" : ""} onClick={() => {this.props.todoStore.currentTag = "";}}>All Tags</a>{' '}</li>
+					{this.renderTags()}
+				</ul>
 			</footer>
 		);
 	}
@@ -44,6 +48,16 @@ export default class TodoFooter extends React.Component {
 			{' '}
 		</li>)
 	}
+
+	// My code
+	renderTags() {
+		var tags = this.props.todoStore.getTodoTags();
+
+		return tags.map((text) =>
+			<li key={text}><a href={"#/tag/" + text} className={text ===  this.props.todoStore.currentTag ? "selected" : ""} onClick={() => {this.props.todoStore.currentTag = text;}}>{text}</a>{' '}</li>
+		);
+	}
+	//End of my code
 
 	clearCompleted = () => {
 		this.props.todoStore.clearCompleted();

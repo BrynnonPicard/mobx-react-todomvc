@@ -1,0 +1,36 @@
+/* My Code */
+.tagField {
+	margin-left: 10px;
+	padding: 5px;
+	width: 120px;
+	border-radius: 5px;
+	border: 1px solid #A9A9A9;
+}
+
+.tag {
+	height: 19px;
+	padding: 4px 6px 4px 6px;
+	margin: 5px;
+	background-color: #A9A9A9;
+	font-size: 12px!important;
+	display: inline-block;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+.tagsList {
+	display: inline;
+	padding-inline-start: 10px;
+}
+
+.tagFilters {
+	display: block;
+	position: relative;
+	width: 100%;
+	margin-top: 40px;
+}
+
+.footer {
+	height: 60px;
+}
+/* End of my code */
