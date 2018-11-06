@@ -11,6 +11,13 @@ export default class TodoItem extends React.Component {
 	@observable editText = "";
 	@observable tagsCode = "";
 
+	constructor(props) {
+		super(props);
+		this.state = {tagText: ''};
+		this.handleTagging = this.handleTagging.bind(this);
+		this.checkKeyInput = this.checkKeyInput.bind(this);
+	}
+
 	render() {
 		const {viewStore, todo} = this.props;
 		return (
@@ -33,7 +40,7 @@ export default class TodoItem extends React.Component {
 						ref="tagField"
 						className="tagField"
 						type="text"
-						value={this.tagText}
+						value={this.state.tagText}
 						placeholder="Add a tag (ex. Urgent)"
 						onChange={this.handleTagging}
 						onKeyDown={this.checkKeyInput}
@@ -96,19 +103,17 @@ export default class TodoItem extends React.Component {
 	// My code
 	checkKeyInput = (event) => {
 		if (event.which === ENTER_KEY) {
-			var text = this.tagText;
+			var text = this.state.tagText;
 
 			if (text != "" && !this.props.todo.tags.includes(text)) {
 				this.props.todo.addTag(text);
+				this.setState({tagText: ""});
 			}
 		}
 	};
 
 	handleTagging = (event) => {
-		this.tagText = event.target.value;
-		this.setState({
-     tagText: ''
-   });
+		this.setState({tagText: event.target.value});
 	};
 
 	getTagCode = (tags) => {

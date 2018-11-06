@@ -61,7 +61,8 @@ export default class TodoStore {
 	//Function to extract a list of unique tags from the todos list
 	getTodoTags() {
 		var tags = [];
-
+		//Obviously this isn't the most efficient solution since it's O(n^2), but the scope of this project is 
+		//so small it won't really have much impact on the overall system
 		for (var i = 0; i < this.todos.length; i++) {
 			for (var j = 0; j < this.todos[i].tags.length; j++) {
 				if (!tags.includes(this.todos[i].tags[j])) {
